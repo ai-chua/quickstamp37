@@ -1,0 +1,4 @@
+ecosystem.config.*
+.eslint*
+node_modules
+build

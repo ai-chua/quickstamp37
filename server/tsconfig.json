@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "outDir": "./build"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["./src/**/*.mjs", "node_modules", "./build", "test"]
+}
