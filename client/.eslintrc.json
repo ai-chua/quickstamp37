@@ -1,0 +1,41 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:import/typescript"
+  ],
+  "rules": {
+		"quotes": [
+			"warn",
+			"single"
+		],
+		"object-curly-spacing": [
+			"warn",
+			"always"
+		],
+		"comma-dangle": [
+			"warn",
+			"never"
+		],
+		"semi": [
+			"warn",
+			"never"
+		],
+    "import/order": [
+			"warn",
+			{
+				"alphabetize": {
+					"caseInsensitive": false,
+					"order": "asc"
+				},
+				"groups": [
+					"builtin",
+					"external",
+					"parent",
+					"sibling",
+					"index"
+				],
+				"newlines-between": "always"
+			}
+		]
+  }
+}
