@@ -1,33 +1,15 @@
-import { createServer } from 'http'
+import { createServer, Server } from 'http'
 
 import { Application } from 'express'
-import io, { Server } from 'socket.io'
 
 import { PORT } from './consts'
-import { appFactory } from './utils/app'
+import { appServerFactory } from './utils/app'
+import { wsFactory } from './utils/ws'
 
-const app: Application = appFactory()
-const server = createServer(app)
-const ws = new Server(server, {
-	cors: {
-		origin: 'http://localhost:3000',
-		methods: ['GET', 'POST']
-	}
-})
+const app: Application = appServerFactory()
 
-ws.on('connection', (socket) => {
-	console.log('a user connected')
+wsFactory(createServer(app))
 
-	socket.on('disconnect', () => {
-		console.log('user disconnected')
-	})
-
-	socket.on('message', (message) => {
-		console.log('message received: ', message)
-		socket.broadcast.emit('message', message)
-	})
-})
-
-server.listen(4000, () => {
-	console.log(`Server is running on http://localhost:${4000}`)
+app.listen(PORT, () => {
+	console.debug(`Server is running on http://localhost:${PORT}`)
 })
