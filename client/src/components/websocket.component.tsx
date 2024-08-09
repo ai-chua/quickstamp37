@@ -14,13 +14,16 @@ export default function WebsocketComponent({ children }: {
   useEffect(() => {
     const handleConnect = () => {
       console.log('connected to server, socketId: ', socket.id)
-      alert(`connected to server, socketId: ${socket.id}`)
       setIsConnected(true)
     }
 
     const handleDisconnect = () => {
       console.log('disconnected from server')
       setIsConnected(false)
+    }
+
+    const handleLatestVesselInformationEvent = (data) => {
+      console.log('Received latestVesselInformation', data)
     }
 
     if (!socket.hasListeners('connect')) {
@@ -31,9 +34,12 @@ export default function WebsocketComponent({ children }: {
       socket.on('disconnect', handleDisconnect)
     }
 
+    socket.on('latestVesselInformation', handleLatestVesselInformationEvent)
+
     return () => {
       socket.off('connect', handleConnect)
       socket.off('disconnect', handleDisconnect)
+      socket.off('latestVesselInformation', handleLatestVesselInformationEvent)
     }
   }, [socket])
 
