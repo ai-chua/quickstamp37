@@ -1,20 +1,13 @@
-import { Server as HttpServer } from 'http'
+import { Server, Socket } from 'socket.io'
 
-import { Server as IoServer } from 'socket.io'
+export default (io: Server): void => {
+	io.on('connection', (socket: Socket) => {
+		console.log('New client connected:', socket.id)
 
-import { CLIENT_PORT } from '../consts'
+		// Initialize socket namespaces or rooms if needed
 
-let ws: IoServer
-
-export const wsFactory = (httpServer: HttpServer) => {
-	ws = new IoServer(httpServer, {
-		cors: {
-			origin: `http://localhost:${CLIENT_PORT}`,
-			methods: ['GET', 'POST']
-		}
+		socket.on('disconnect', () => {
+			console.log('Client disconnected:', socket.id)
+		})
 	})
-
-	console.debug('Initialised ws server!')
 }
-
-export const getWsInstance = () => ws

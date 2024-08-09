@@ -1,5 +1,3 @@
-import { createServer, Server } from 'http'
-
 import { json } from 'body-parser'
 import cors, { CorsRequest } from 'cors'
 import express, { Application, urlencoded } from 'express'

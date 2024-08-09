@@ -1,15 +1,24 @@
-import { createServer, Server } from 'http'
+import { createServer } from 'http'
 
 import { Application } from 'express'
+import { Server } from 'socket.io'
 
-import { PORT } from './consts'
+import { CLIENT_PORT, PORT } from './consts'
 import { appServerFactory } from './utils/app'
-import { wsFactory } from './utils/ws'
+import socketManager from './utils/ws'
 
 const app: Application = appServerFactory()
+const server = createServer(app)
 
-wsFactory(createServer(app))
+const io = new Server(server, {
+	cors: {
+		origin: `http://localhost:${CLIENT_PORT}`,
+		methods: ['GET', 'POST']
+	}
+})
 
-app.listen(PORT, () => {
+socketManager(io)
+
+server.listen(PORT, () => {
 	console.debug(`Server is running on http://localhost:${PORT}`)
 })
