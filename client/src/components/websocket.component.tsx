@@ -22,7 +22,7 @@ export default function WebsocketComponent({ children }: {
       setIsConnected(false)
     }
 
-    const handleLatestVesselInformationEvent = (data) => {
+    const handleLatestVesselInformationEvent = (data: any) => {
       console.log('Received latestVesselInformation', data)
     }
 
