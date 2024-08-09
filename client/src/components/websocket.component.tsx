@@ -1,13 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
+import { VesselsContext } from '@/utils/contexts/vessels-context'
 import { getSocket } from '@/utils/socket'
 
 export default function WebsocketComponent({ children }: {
   children: React.ReactNode
 }) {
   const socket = getSocket()
+  const { upsertVesselData } = useContext(VesselsContext)
 
   const [isConnected, setIsConnected] = useState(socket.connected)
   
@@ -24,6 +26,7 @@ export default function WebsocketComponent({ children }: {
 
     const handleLatestVesselInformationEvent = (data: any) => {
       console.log('Received latestVesselInformation', data)
+      upsertVesselData(data)
     }
 
     if (!socket.hasListeners('connect')) {
