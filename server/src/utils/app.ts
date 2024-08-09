@@ -3,14 +3,13 @@ import cors, { CorsRequest } from 'cors'
 import express, { Application, urlencoded } from 'express'
 
 import apiRouter from '../api'
-import { CLIENT_PORT } from '../consts'
 
-export const appServerFactory = (): Application => {
+export const appFactory = (): Application => {
 	const app = express()
 
 	app.use(cors<CorsRequest>())
 	app.options('*', cors<CorsRequest>({
-		origin: `http://localhost:${CLIENT_PORT}`,
+		origin: '*',
 		methods: ['GET', 'POST']
 	}))
 	app.use(urlencoded({ extended: true }))

@@ -4,10 +4,10 @@ import { Application } from 'express'
 import { Server } from 'socket.io'
 
 import { CLIENT_PORT, PORT } from './consts'
-import { appServerFactory } from './utils/app'
-import socketManager from './utils/ws'
+import { appFactory } from './utils/app'
+import { initializeSocketInstance } from './utils/socket-instance'
 
-const app: Application = appServerFactory()
+const app: Application = appFactory()
 const server = createServer(app)
 
 const io = new Server(server, {
@@ -17,7 +17,7 @@ const io = new Server(server, {
 	}
 })
 
-socketManager(io)
+initializeSocketInstance(io)
 
 server.listen(PORT, () => {
 	console.debug(`Server is running on http://localhost:${PORT}`)
