@@ -23,20 +23,6 @@ export const updatedVesselInformation = async (
 		console.debug('Sent for imo', vessel.imo)
 	})
 
-	// getSocketInstance().emit(WEBSOCKET_EVENTS.LATEST, {
-	// 	message: 'Latest vessel information',
-	// 	timestamp: new Date().toISOString(),
-	// 	payload: payload.map((vessel: TrackedVesselInformation): VesselInformation => {
-
-	// 		return {
-	// 			imo: vessel.imo,
-	// 			lat: vessel.lat,
-	// 			lng: vessel.lng,
-	// 			destination: vessel.destination
-	// 		}
-	// 	})
-	// })
-
 	return res.status(200).json({
 		success: true
 	})
